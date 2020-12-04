@@ -23,7 +23,7 @@ function howManyTrees(slopeX, slopeY) {
   return trees;
 }
 
-console.log("Puzzle1:", howManyTrees(3, 1));
+const answer1 = howManyTrees(3, 1);
 
 const slope1 = howManyTrees(1, 1);
 const slope2 = howManyTrees(3, 1);
@@ -31,4 +31,6 @@ const slope3 = howManyTrees(5, 1);
 const slope4 = howManyTrees(7, 1);
 const slope5 = howManyTrees(1, 2);
 
-console.log("Puzzle2:", slope1 * slope2 * slope3 * slope4 * slope5);
+const answer2 = slope1 * slope2 * slope3 * slope4 * slope5;
+
+module.exports = [answer1, answer2];

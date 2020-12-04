@@ -5,7 +5,11 @@
   "repository": "git@github.com:oltodo/adventOfCode.git",
   "author": "Nicolas Bazille <oltodo@msn.com>",
   "license": "MIT",
+  "dependencies": {
+    "lodash": "4.17.20"
+  },
   "devDependencies": {
+    "chalk": "4.1.0",
     "eslint": "7.2.0",
     "eslint-config-airbnb-base": "14.2.1",
     "eslint-config-prettier": "6.15.0",
@@ -16,7 +20,8 @@
     "prettier": "2.2.1"
   },
   "scripts": {
-    "lint": "eslint 2020 package.json"
+    "lint": "eslint 2020 package.json",
+    "start": "node ./scripts/run.js"
   },
   "eslintConfig": {
     "extends": [
