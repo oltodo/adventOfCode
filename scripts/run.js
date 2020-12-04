@@ -44,7 +44,13 @@ try {
     throw new Error(`File \`${puzzlePath}\` not found`);
   }
 
-  const anwsers = require(`${rootPath}/${puzzlePath}`);
+  let answers;
+
+  try {
+    anwsers = require(`${rootPath}/${puzzlePath}`);
+  } catch (err) {
+    console.log(err);
+  }
 
   if (!_.isArray(anwsers)) {
     throw new Error(`\`${puzzlePath}\` must export an array`);
