@@ -1,0 +1,49 @@
+{
+  "name": "@oltodo/adventofcode",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:oltodo/adventOfCode.git",
+  "author": "Nicolas Bazille <oltodo@msn.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "7.2.0",
+    "eslint-config-airbnb-base": "14.2.1",
+    "eslint-config-prettier": "6.15.0",
+    "eslint-plugin-import": "2.22.1",
+    "eslint-plugin-prettier": "3.2.0",
+    "husky": "4.3.0",
+    "lint-staged": "10.5.2",
+    "prettier": "2.2.1"
+  },
+  "scripts": {
+    "lint": "eslint 2020 package.json"
+  },
+  "eslintConfig": {
+    "extends": [
+      "airbnb-base",
+      "prettier"
+    ],
+    "plugins": [
+      "prettier"
+    ],
+    "rules": {
+      "prettier/prettier": [
+        "error"
+      ],
+      "no-console": "off"
+    },
+    "lint-staged": {
+      "*.js": [
+        "eslint --fix"
+      ],
+      "*.json": [
+        "prettier"
+      ]
+    },
+    "husky": {
+      "hooks": {
+        "pre-commit": "lint-staged"
+      }
+    }
+  }
+}
