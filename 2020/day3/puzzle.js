@@ -1,4 +1,4 @@
-const pattern = require("./data.json");
+const pattern = require("./input.json");
 
 const patternWidth = pattern[0].length;
 const patternHeight = pattern.length;

@@ -1,9 +1,24 @@
+const fs = require("fs");
 const _ = require("lodash");
-const passports = require("./passports");
 
 function isYear(value) {
   return /^[0-9]{4}$/.test(value);
 }
+
+const passports = fs
+  .readFileSync(__dirname + "/input.txt")
+  .toString()
+  .split("\n\n")
+  .map((line) =>
+    line.split(/\s+/).reduce((acc, curr) => {
+      const [key, value] = curr.split(":");
+
+      return {
+        ...acc,
+        [key]: value,
+      };
+    }, {})
+  );
 
 const requiredKeys = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"];
 

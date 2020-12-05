@@ -1,4 +1,4 @@
-const passwords = require("./data.json");
+const passwords = require("./input.json");
 
 const answer1 = passwords.reduce((acc, curr) => {
   const [min, max, char, password] = curr;
