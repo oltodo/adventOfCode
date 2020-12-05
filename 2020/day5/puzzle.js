@@ -37,13 +37,14 @@ const seatIds = seats.map(getSeatId).sort((a, b) => a - b);
 const min = seatIds[0];
 const max = seatIds[seatIds.length - 1];
 
-let missing;
-seatIds.reduce((acc, curr) => {
-  if (curr - acc > 1) {
-    missing = curr - 1;
+const missing = seatIds.reduce((acc, curr, index) => {
+  const next = seatIds[index + 1];
+
+  if (next && next - curr > 1) {
+    return curr + 1;
   }
 
-  return curr;
+  return acc;
 }, min);
 
 module.exports = [max, missing];
