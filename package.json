@@ -20,7 +20,7 @@
     "prettier": "2.2.1"
   },
   "scripts": {
-    "lint": "eslint 2020 package.json",
+    "lint": "eslint 2020",
     "start": "node ./scripts/run.js"
   },
   "eslintConfig": {
@@ -36,19 +36,19 @@
         "error"
       ],
       "no-console": "off"
-    },
-    "lint-staged": {
-      "*.js": [
-        "eslint --fix"
-      ],
-      "*.json": [
-        "prettier"
-      ]
-    },
-    "husky": {
-      "hooks": {
-        "pre-commit": "lint-staged"
-      }
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix"
+    ],
+    "*.json": [
+      "prettier"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
     }
   }
 }

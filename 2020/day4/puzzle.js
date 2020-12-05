@@ -1,12 +1,11 @@
 const fs = require("fs");
-const _ = require("lodash");
 
 function isYear(value) {
   return /^[0-9]{4}$/.test(value);
 }
 
 const passports = fs
-  .readFileSync(__dirname + "/input.txt")
+  .readFileSync(`${__dirname}/input.txt`)
   .toString()
   .split("\n\n")
   .map((line) =>
