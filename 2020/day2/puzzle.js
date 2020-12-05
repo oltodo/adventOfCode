@@ -1,4 +1,15 @@
-const passwords = require("./input.json");
+const fs = require("fs");
+
+const passwords = fs
+  .readFileSync(`${__dirname}/input.txt`)
+  .toString()
+  .trim()
+  .split("\n")
+  .map((line) => {
+    const [, min, max, char, pwd] = line.match(/^(\d+)-(\d+) ([a-z]): (.+)/);
+
+    return [parseInt(min, 10), parseInt(max, 10), char, pwd];
+  });
 
 const answer1 = passwords.reduce((acc, curr) => {
   const [min, max, char, password] = curr;

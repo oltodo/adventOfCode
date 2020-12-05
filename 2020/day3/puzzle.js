@@ -1,4 +1,13 @@
-const pattern = require("./input.json");
+const fs = require("fs");
+
+const pattern = fs
+  .readFileSync(`${__dirname}/input.txt`)
+  .toString()
+  .trim()
+  .split("\n")
+  .map((line) => {
+    return line.split("").map((char) => (char === "#" ? 1 : 0));
+  });
 
 const patternWidth = pattern[0].length;
 const patternHeight = pattern.length;
