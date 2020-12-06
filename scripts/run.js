@@ -1,17 +1,18 @@
 const fs = require("fs");
 const _ = require("lodash");
 const chalk = require("chalk");
+
 const args = process.argv.slice(2);
 
 console.log("");
 
-const rootPath = __dirname + "/..";
+const rootPath = `${__dirname}/..`;
+
+function isYear(value) {
+  return /^[0-9]{4}$/.test(value);
+}
 
 try {
-  function isYear(value) {
-    return /^[0-9]{4}$/.test(value);
-  }
-
   const folders = fs.readdirSync(rootPath);
   const years = folders.filter((name) => isYear(name)).sort();
 
@@ -26,7 +27,6 @@ try {
 
     if (/^[0-9]$/.test(arg)) {
       day = arg;
-      return;
     }
   });
 
@@ -47,23 +47,24 @@ try {
   let answers;
 
   try {
-    anwsers = require(`${rootPath}/${puzzlePath}`);
+    // eslint-disable-next-line global-require, import/no-dynamic-require
+    answers = require(`${rootPath}/${puzzlePath}`);
   } catch (err) {
     console.log(err);
   }
 
-  if (!_.isArray(anwsers)) {
+  if (!_.isArray(answers)) {
     throw new Error(`\`${puzzlePath}\` must export an array`);
   }
 
-  if (!anwsers.length) {
+  if (!answers.length) {
     throw new Error(`No answer provided`);
   }
 
-  console.log(chalk.cyan("Answer 1:"), anwsers[0]);
+  console.log(chalk.cyan("Answer 1:"), answers[0]);
 
-  if (anwsers.length > 1) {
-    console.log(chalk.cyan("Answer 2:"), anwsers[1]);
+  if (answers.length > 1) {
+    console.log(chalk.cyan("Answer 2:"), answers[1]);
   }
 } catch (err) {
   console.log(chalk.red(err.message));
