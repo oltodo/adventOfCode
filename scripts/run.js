@@ -1,16 +1,13 @@
 const fs = require("fs");
 const _ = require("lodash");
 const chalk = require("chalk");
+const isYear = require("../utils/isYear");
 
 const args = process.argv.slice(2);
 
 console.log("");
 
 const rootPath = `${__dirname}/..`;
-
-function isYear(value) {
-  return /^[0-9]{4}$/.test(value);
-}
 
 try {
   const folders = fs.readdirSync(rootPath);

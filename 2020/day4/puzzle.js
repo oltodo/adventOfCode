@@ -1,8 +1,5 @@
 const fs = require("fs");
-
-function isYear(value) {
-  return /^[0-9]{4}$/.test(value);
-}
+const isYear = require("../../utils/isYear");
 
 const passports = fs
   .readFileSync(`${__dirname}/input.txt`)

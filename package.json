@@ -20,7 +20,7 @@
     "prettier": "2.2.1"
   },
   "scripts": {
-    "lint": "eslint scripts 2020",
+    "lint": "eslint scripts utils 2020",
     "start": "node ./scripts/run.js"
   },
   "eslintConfig": {
