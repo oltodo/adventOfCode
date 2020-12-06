@@ -64,17 +64,19 @@ const {
   })
   .strictCommands();
 
-const rootPath = `${__dirname}/..`;
-const puzzlePath = `${rootPath}/${year}/day${day}`;
+(async function main() {
+  const rootPath = `${__dirname}/..`;
+  const puzzlePath = `${rootPath}/${year}/day${day}`;
 
-mkdirp(puzzlePath);
+  await mkdirp(puzzlePath);
 
-const files = [
-  [`${puzzlePath}/puzzle.js`, "module.exports = [];\n"],
-  [`${puzzlePath}/input.txt`, ""],
-];
+  const files = [
+    [`${puzzlePath}/puzzle.js`, "module.exports = [];\n"],
+    [`${puzzlePath}/input.txt`, ""],
+  ];
 
-files.forEach(([path, content]) => {
-  fs.writeFileSync(path, content);
-  exec(`code ${path}`);
-});
+  files.forEach(([path, content]) => {
+    fs.writeFileSync(path, content);
+    exec(`code ${path}`);
+  });
+})();
