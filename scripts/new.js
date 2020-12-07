@@ -76,7 +76,9 @@ const {
   ];
 
   files.forEach(([path, content]) => {
-    fs.writeFileSync(path, content);
+    if (!fs.existsSync(`${path}`)) {
+      fs.writeFileSync(path, content);
+    }
     exec(`code ${path}`);
   });
 })();
