@@ -13,7 +13,7 @@ function getAnswer1(noun, verb) {
   intcode[1] = noun;
   intcode[2] = verb;
 
-  for (let i = 0; i <= intcode.length; i += 4) {
+  for (let i = 0; i < intcode.length; i += 4) {
     const [opcode, input1, input2, output] = intcode.slice(i, i + 4);
 
     if (opcode === 99) {
