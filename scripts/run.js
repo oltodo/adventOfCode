@@ -1,6 +1,7 @@
 const fs = require("fs");
 const _ = require("lodash");
 const chalk = require("chalk");
+const prettyDuration = require("pretty-ms");
 const isYear = require("../utils/isYear");
 
 const args = process.argv.slice(2);
@@ -42,10 +43,15 @@ try {
   }
 
   let answers;
+  let duration;
 
   try {
+    duration = Date.now();
+
     // eslint-disable-next-line global-require, import/no-dynamic-require
     answers = require(`${rootPath}/${puzzlePath}`);
+
+    duration = Date.now() - duration;
   } catch (err) {
     console.log(err);
   }
@@ -63,6 +69,9 @@ try {
   if (answers.length > 1) {
     console.log(chalk.cyan("Answer 2:"), answers[1]);
   }
+
+  console.log();
+  console.log(chalk.bold("duration:"), prettyDuration(duration));
 } catch (err) {
   console.log(chalk.red(err.message));
 }
