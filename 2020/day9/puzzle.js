@@ -7,11 +7,7 @@ const input = fs
   .split("\n")
   .map((line) => parseInt(line, 10));
 
-function sum(numbers) {
-  return numbers.reduce((acc, curr) => acc + curr, 0);
-}
-
-function findSum(result, items, current = []) {
+function findSum(result, items, current = [], total = 0) {
   for (let i = 0; i < items.length; i += 1) {
     const next = current.concat([items[i]]);
     const rest = items.slice(i + 1);
@@ -21,7 +17,7 @@ function findSum(result, items, current = []) {
     }
 
     if (next.length === 2) {
-      if (sum(next) === result) {
+      if (total + items[i] === result) {
         return next;
       }
 
@@ -29,7 +25,7 @@ function findSum(result, items, current = []) {
       continue;
     }
 
-    const answer = findSum(result, rest, next);
+    const answer = findSum(result, rest, next, total + items[i]);
     if (answer !== null) {
       return answer;
     }
@@ -39,15 +35,16 @@ function findSum(result, items, current = []) {
 }
 
 function findSerie(result) {
-  const fn = (items, current = []) => {
-    const next = current.concat([items.shift()]);
+  const fn = (items, current = [], total = 0) => {
+    const item = items.shift();
+    const next = current.concat([item]);
 
-    if (sum(next) === result) {
+    if (total + item === result) {
       return next;
     }
 
     if (items.length) {
-      return fn(items, next);
+      return fn(items, next, total + item);
     }
 
     return null;
