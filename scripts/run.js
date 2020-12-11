@@ -4,8 +4,6 @@ const chalk = require("chalk");
 const prettyDuration = require("pretty-ms");
 const isYear = require("../utils/isYear");
 
-const args = process.argv.slice(2);
-
 console.log("");
 
 const rootPath = `${__dirname}/..`;
@@ -17,7 +15,7 @@ try {
   let year = years[years.length - 1];
   let day = new Date().getDate();
 
-  args.forEach((arg) => {
+  process.argv.slice(2).forEach((arg) => {
     if (isYear(arg)) {
       year = arg;
       return;
