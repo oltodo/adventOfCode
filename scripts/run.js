@@ -23,7 +23,7 @@ try {
       return;
     }
 
-    if (/^[0-9]$/.test(arg)) {
+    if (/^[0-9]{1,2}$/.test(arg)) {
       day = arg;
     }
   });
