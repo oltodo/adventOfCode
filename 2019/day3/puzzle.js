@@ -1,18 +1,3 @@
-const fs = require("fs");
-
-const paths = fs
-  .readFileSync(`${__dirname}/input.txt`)
-  .toString()
-  .trim()
-  .split("\n")
-  .map((line) =>
-    line.split(",").map((item) => {
-      const [, direction, distance] = /([A-Z])(\d+)/.exec(item);
-
-      return [direction, parseInt(distance, 10)];
-    })
-  );
-
 function getCoords(path) {
   return path.reduce((acc, [direction, distance]) => {
     const [x = 0, y = 0] = acc[acc.length - 1] || [];
@@ -109,18 +94,28 @@ function getDistanceTo(steps, [x, y]) {
   return 0;
 }
 
-function getAnswer1() {
-  const coordsA = getCoords(paths[0]);
-  const coordsB = getCoords(paths[1]);
+module.exports.processInput = (input) => {
+  return input.split("\n").map((line) =>
+    line.split(",").map((item) => {
+      const [, direction, distance] = /([A-Z])(\d+)/.exec(item);
+
+      return [direction, parseInt(distance, 10)];
+    })
+  );
+};
+
+module.exports.part1 = (input) => {
+  const coordsA = getCoords(input[0]);
+  const coordsB = getCoords(input[1]);
 
   return getCrossLocations(coordsA, coordsB)
     .map(([x, y]) => Math.abs(x) + Math.abs(y))
     .reduce((acc, curr) => Math.min(acc, curr), Infinity);
-}
+};
 
-function getAnswer2() {
-  const coordsA = getCoords(paths[0]);
-  const coordsB = getCoords(paths[1]);
+module.exports.part2 = (input) => {
+  const coordsA = getCoords(input[0]);
+  const coordsB = getCoords(input[1]);
   const locations = getCrossLocations(coordsA, coordsB);
 
   return locations.reduce((acc, location) => {
@@ -129,9 +124,4 @@ function getAnswer2() {
       getDistanceTo(coordsA, location) + getDistanceTo(coordsB, location)
     );
   }, Infinity);
-}
-
-const answer1 = getAnswer1();
-const answer2 = getAnswer2();
-
-module.exports = [answer1, answer2];
+};

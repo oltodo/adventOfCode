@@ -1,12 +1,4 @@
 /* eslint-disable no-continue */
-const fs = require("fs");
-
-const intcode = fs
-  .readFileSync(`${__dirname}/input.txt`)
-  .toString()
-  .trim()
-  .split(",")
-  .map((line) => parseInt(line, 10));
 
 function parseHeader(header) {
   const opcode = header % 100;
@@ -20,7 +12,7 @@ function parseHeader(header) {
   return [opcode, modes];
 }
 
-function getDiagnosticCode(input) {
+function getDiagnosticCode(intcode, input) {
   const code = [...intcode];
 
   let output = null;
@@ -86,7 +78,14 @@ function getDiagnosticCode(input) {
   return null;
 }
 
-const answer1 = getDiagnosticCode(1);
-const answer2 = getDiagnosticCode(5);
+module.exports.processInput = (input) => {
+  return input.split(",").map((line) => parseInt(line, 10));
+};
 
-module.exports = [answer1, answer2];
+module.exports.part1 = (input) => {
+  return getDiagnosticCode(input, 1);
+};
+
+module.exports.part2 = (input) => {
+  return getDiagnosticCode(input, 5);
+};

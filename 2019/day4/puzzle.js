@@ -1,12 +1,3 @@
-const fs = require("fs");
-
-const [min, max] = fs
-  .readFileSync(`${__dirname}/input.txt`)
-  .toString()
-  .trim()
-  .split("-")
-  .map((item) => parseInt(item, 10));
-
 function extractGroups(pwd) {
   const groups = [];
   const chars = pwd.split("");
@@ -30,7 +21,7 @@ function upper(arr) {
   return arr.reduce((acc, curr) => Math.max(acc, curr), 0);
 }
 
-function isValid(pwd, part) {
+function isValid(pwd, min, max, part) {
   if (!/^[0-9]{6}$/.test(pwd)) {
     return false;
   }
@@ -61,11 +52,11 @@ function isValid(pwd, part) {
   return true;
 }
 
-function getAnswer(part) {
+function getAnswer([min, max], part) {
   let counter = 0;
 
   for (let i = min; i <= max; i += 1) {
-    if (isValid(`${i}`, part)) {
+    if (isValid(`${i}`, min, max, part)) {
       counter += 1;
     }
   }
@@ -73,7 +64,14 @@ function getAnswer(part) {
   return counter;
 }
 
-const answer1 = getAnswer(1);
-const answer2 = getAnswer(2);
+module.exports.processInput = (input) => {
+  return input.split("-").map((item) => parseInt(item, 10));
+};
 
-module.exports = [answer1, answer2];
+module.exports.part1 = (input) => {
+  return getAnswer(input, 1);
+};
+
+module.exports.part2 = (input) => {
+  return getAnswer(input, 2);
+};
