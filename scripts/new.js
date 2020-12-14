@@ -37,8 +37,16 @@ process.argv.slice(2).forEach((arg) => {
 
   await mkdirp(puzzlePath);
 
+  const puzzleContent = `
+module.exports.processInput = (input) => {};
+
+module.exports.part1 = (input) => {};
+
+module.exports.part2 = (input) => {};
+`;
+
   const files = [
-    [`${puzzlePath}/puzzle.js`, "module.exports = [];\n"],
+    [`${puzzlePath}/puzzle.js`, `${puzzleContent.trim()}\n`],
     [`${puzzlePath}/input.txt`, ""],
   ];
 
