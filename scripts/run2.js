@@ -19,7 +19,7 @@ function run(part, input, partNumber) {
   duration = prettyDuration(duration);
 
   if (!Number.isInteger(answer)) {
-    message = chalk.red(`\`part${partNumber}()\` must return a integer`);
+    message = chalk.red(`\`part${partNumber}\` must return a integer`);
   } else {
     message = `${chalk.yellow(answer)} ${chalk.gray(`(${duration})`)}`;
   }
@@ -35,6 +35,7 @@ try {
 
   let year = years[years.length - 1];
   let day = new Date().getDate();
+  let tag = "";
 
   process.argv.slice(2).forEach((arg) => {
     if (isYear(arg)) {
@@ -44,7 +45,10 @@ try {
 
     if (/^[0-9]{1,2}$/.test(arg)) {
       day = arg;
+      return;
     }
+
+    tag = new RegExp(arg.replace("*", ".*"));
   });
 
   if (!day) {
@@ -95,6 +99,9 @@ try {
 
     if (match) {
       const [, name] = match;
+
+      if (tag && !tag.test(name)) return;
+
       const partNumber = parseInt(match[2], 10);
       const expected = parseInt(match[3], 10);
       const input = processInput(
@@ -124,12 +131,17 @@ try {
     console.log();
   }
 
-  const input = processInput(
-    fs.readFileSync(`${rootPath}/${puzzlePath}/input.txt`).toString().trim()
-  );
+  const getInput = () =>
+    processInput(
+      fs.readFileSync(`${rootPath}/${puzzlePath}/input.txt`).toString().trim()
+    );
 
-  run(part1, input, 1);
-  run(part2, input, 2);
+  if (!tag || tag.test("part1")) {
+    run(part1, getInput(), 1);
+  }
+  if (!tag || tag.test("part2")) {
+    run(part2, getInput(), 2);
+  }
 } catch (err) {
   if (err instanceof ConfigurationError) {
     console.log(chalk.red(err.message));
