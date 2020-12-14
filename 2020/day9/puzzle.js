@@ -1,12 +1,3 @@
-const fs = require("fs");
-
-const input = fs
-  .readFileSync(`${__dirname}/input.txt`)
-  .toString()
-  .trim()
-  .split("\n")
-  .map((line) => parseInt(line, 10));
-
 function findSum(result, items, current = [], total = 0) {
   for (let i = 0; i < items.length; i += 1) {
     const next = current.concat([items[i]]);
@@ -34,7 +25,7 @@ function findSum(result, items, current = [], total = 0) {
   return null;
 }
 
-function findSerie(result) {
+function findSerie(input, result) {
   const fn = (items, current = [], total = 0) => {
     const item = items.shift();
     const next = current.concat([item]);
@@ -60,7 +51,7 @@ function findSerie(result) {
   return null;
 }
 
-function getAnswer1() {
+function getInvalidNumber(input) {
   const preambleSize = 25;
 
   return input.slice(preambleSize).reduce((acc, curr, index) => {
@@ -74,14 +65,17 @@ function getAnswer1() {
   }, null);
 }
 
-function getAnswer2(invalidNumber) {
-  const serie = findSerie(invalidNumber);
+module.exports.processInput = (input) => {
+  return input.split("\n").map(Number);
+};
+
+module.exports.part1 = (input) => {
+  return getInvalidNumber(input);
+};
+
+module.exports.part2 = (input) => {
+  const serie = findSerie(input, getInvalidNumber(input));
   serie.sort();
 
   return serie[0] + serie[serie.length - 1];
-}
-
-const answer1 = getAnswer1();
-const answer2 = getAnswer2(answer1);
-
-module.exports = [answer1, answer2];
+};

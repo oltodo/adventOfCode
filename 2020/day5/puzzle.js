@@ -1,11 +1,3 @@
-const fs = require("fs");
-
-const seats = fs
-  .readFileSync(`${__dirname}/input.txt`)
-  .toString()
-  .trim()
-  .split("\n");
-
 function bisect(range, code) {
   return code.reduce((acc, curr) => {
     const [min, max] = acc;
@@ -33,18 +25,26 @@ function getSeatId(code) {
   return row * 8 + column;
 }
 
-const seatIds = seats.map(getSeatId).sort((a, b) => a - b);
-const min = seatIds[0];
-const max = seatIds[seatIds.length - 1];
+module.exports.processInput = (input) => {
+  return input.split("\n");
+};
 
-const missing = seatIds.reduce((acc, curr, index) => {
-  const next = seatIds[index + 1];
+module.exports.part1 = (input) => {
+  const seatIds = input.map(getSeatId).sort((a, b) => a - b);
+  return seatIds[seatIds.length - 1];
+};
 
-  if (next && next - curr > 1) {
-    return curr + 1;
-  }
+module.exports.part2 = (input) => {
+  const seatIds = input.map(getSeatId).sort((a, b) => a - b);
+  const min = seatIds[0];
 
-  return acc;
-}, min);
+  return seatIds.reduce((acc, curr, index) => {
+    const next = seatIds[index + 1];
 
-module.exports = [max, missing];
+    if (next && next - curr > 1) {
+      return curr + 1;
+    }
+
+    return acc;
+  }, min);
+};

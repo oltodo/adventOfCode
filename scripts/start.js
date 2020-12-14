@@ -19,7 +19,9 @@ function run(part, input, partNumber) {
   duration = prettyDuration(duration);
 
   if (!Number.isInteger(answer)) {
-    message = chalk.red(`\`part${partNumber}\` must return a integer`);
+    message = chalk.red(
+      `\`part${partNumber}\` must return a integer (received: ${answer})`
+    );
   } else {
     message = `${chalk.yellow(answer)} ${chalk.gray(`(${duration})`)}`;
   }
@@ -102,8 +104,8 @@ try {
 
       if (tag && !tag.test(name)) return;
 
-      const partNumber = parseInt(match[2], 10);
-      const expected = parseInt(match[3], 10);
+      const partNumber = Number(match[2]);
+      const expected = Number(match[3]);
       const input = processInput(
         fs.readFileSync(`${rootPath}/${puzzlePath}/${file}`).toString().trim()
       );

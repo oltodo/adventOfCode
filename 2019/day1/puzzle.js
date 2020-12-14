@@ -17,7 +17,7 @@ function getFuelRequirement(mass) {
 }
 
 module.exports.processInput = (input) => {
-  return input.split("\n").map((line) => parseInt(line, 10));
+  return input.split("\n").map(Number);
 };
 
 module.exports.part1 = (input) => {

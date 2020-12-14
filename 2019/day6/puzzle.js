@@ -31,7 +31,7 @@ function getTree() {
   return tree;
 }
 
-function getAnswer1() {
+function part1() {
   const tree = getTree();
 
   let orbits = 0;
@@ -48,6 +48,6 @@ function getAnswer1() {
   return orbits;
 }
 
-const answer1 = getAnswer1();
+const answer1 = part1();
 
 module.exports = [answer1];

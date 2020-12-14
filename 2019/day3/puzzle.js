@@ -99,7 +99,7 @@ module.exports.processInput = (input) => {
     line.split(",").map((item) => {
       const [, direction, distance] = /([A-Z])(\d+)/.exec(item);
 
-      return [direction, parseInt(distance, 10)];
+      return [direction, Number(distance)];
     })
   );
 };

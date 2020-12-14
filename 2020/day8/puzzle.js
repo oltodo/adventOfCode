@@ -1,16 +1,3 @@
-const fs = require("fs");
-
-const input = fs
-  .readFileSync(`${__dirname}/input.txt`)
-  .toString()
-  .trim()
-  .split("\n")
-  .map((line) => {
-    const [instruction, parameter] = line.split(" ");
-
-    return [instruction, parseInt(parameter, 10)];
-  });
-
 function analyze(bootCode) {
   let acc = 0;
   let pointer = 0;
@@ -42,7 +29,7 @@ function analyze(bootCode) {
   return [acc, false];
 }
 
-function repair() {
+function repair(input) {
   for (let i = 0; i < input.length; i += 1) {
     const [instruction] = input[i];
 
@@ -61,7 +48,18 @@ function repair() {
   return 0;
 }
 
-const [answer1] = analyze(input);
-const answer2 = repair();
+module.exports.processInput = (input) => {
+  return input.split("\n").map((line) => {
+    const [instruction, parameter] = line.split(" ");
 
-module.exports = [answer1, answer2];
+    return [instruction, Number(parameter)];
+  });
+};
+
+module.exports.part1 = (input) => {
+  return analyze(input)[0];
+};
+
+module.exports.part2 = (input) => {
+  return repair(input);
+};

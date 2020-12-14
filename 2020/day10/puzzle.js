@@ -1,16 +1,11 @@
-const fs = require("fs");
+module.exports.processInput = (input) => {
+  return input
+    .split("\n")
+    .map(Number)
+    .sort((a, b) => a - b);
+};
 
-const input = fs
-  .readFileSync(`${__dirname}/input.txt`)
-  .toString()
-  .trim()
-  .split("\n")
-  .map((line) => parseInt(line, 10))
-  .sort((a, b) => a - b);
-
-console.log(input);
-
-function getAnswer1() {
+module.exports.part1 = (input) => {
   let diff1 = 0;
   let diff3 = 1;
 
@@ -25,10 +20,10 @@ function getAnswer1() {
   }
 
   return diff1 * diff3;
-}
+};
 
-// I'm not the author of that solution
-function getAnswer2() {
+module.exports.part2 = (input) => {
+  // I'm not the author of that solution
   return input
     .reduce(
       (acc, value) => {
@@ -39,9 +34,4 @@ function getAnswer2() {
       [0, 0, 1]
     )
     .pop();
-}
-
-const answer1 = getAnswer1();
-const answer2 = getAnswer2();
-
-module.exports = [answer1, answer2];
+};

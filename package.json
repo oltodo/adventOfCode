@@ -23,8 +23,7 @@
   },
   "scripts": {
     "lint": "eslint scripts utils 2020",
-    "start": "node ./scripts/run.js",
-    "go": "node ./scripts/run2.js",
+    "start": "node ./scripts/start.js",
     "new": "node ./scripts/new.js"
   },
   "eslintConfig": {

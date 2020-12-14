@@ -1,12 +1,3 @@
-const fs = require("fs");
-
-const groups = fs
-  .readFileSync(`${__dirname}/input.txt`)
-  .toString()
-  .trim()
-  .split("\n\n")
-  .map((group) => group.split("\n").map((line) => line.split("")));
-
 function flatten(arrays) {
   return arrays.reduce((acc, curr) => acc.concat(curr), []);
 }
@@ -17,16 +8,24 @@ function intersection(arrays) {
   );
 }
 
-const answer1 = groups.reduce((acc, group) => {
-  const yes = [...new Set(flatten(group))];
+module.exports.processInput = (input) => {
+  return input
+    .split("\n\n")
+    .map((group) => group.split("\n").map((line) => line.split("")));
+};
 
-  return acc + yes.length;
-}, 0);
+module.exports.part1 = (input) => {
+  return input.reduce((acc, group) => {
+    const yes = [...new Set(flatten(group))];
 
-const answer2 = groups.reduce((acc, group) => {
-  const yes = intersection(group);
+    return acc + yes.length;
+  }, 0);
+};
 
-  return acc + yes.length;
-}, 0);
+module.exports.part2 = (input) => {
+  return input.reduce((acc, group) => {
+    const yes = intersection(group);
 
-module.exports = [answer1, answer2];
+    return acc + yes.length;
+  }, 0);
+};

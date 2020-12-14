@@ -1,20 +1,4 @@
-const fs = require("fs");
 const isYear = require("../../utils/isYear");
-
-const passports = fs
-  .readFileSync(`${__dirname}/input.txt`)
-  .toString()
-  .split("\n\n")
-  .map((line) =>
-    line.split(/\s+/).reduce((acc, curr) => {
-      const [key, value] = curr.split(":");
-
-      return {
-        ...acc,
-        [key]: value,
-      };
-    }, {})
-  );
 
 const requiredKeys = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"];
 
@@ -27,7 +11,7 @@ const rules = {
       return false;
     }
 
-    const number = parseInt(value, 10);
+    const number = Number(value);
 
     if (value.endsWith("cm")) {
       return number >= 150 && number <= 193;
@@ -54,10 +38,25 @@ function areKeysValid(passport) {
   );
 }
 
-const answer1 = passports.reduce((acc, curr) => acc + hasRequiredKeys(curr), 0);
+module.exports.processInput = (input) => {
+  return input.split("\n\n").map((line) =>
+    line.split(/\s+/).reduce((acc, curr) => {
+      const [key, value] = curr.split(":");
 
-const answer2 = passports.reduce((acc, curr) => {
-  return acc + (hasRequiredKeys(curr) && areKeysValid(curr));
-}, 0);
+      return {
+        ...acc,
+        [key]: value,
+      };
+    }, {})
+  );
+};
 
-module.exports = [answer1, answer2];
+module.exports.part1 = (input) => {
+  return input.reduce((acc, curr) => acc + hasRequiredKeys(curr), 0);
+};
+
+module.exports.part2 = (input) => {
+  return input.reduce((acc, curr) => {
+    return acc + (hasRequiredKeys(curr) && areKeysValid(curr));
+  }, 0);
+};

@@ -1,42 +1,39 @@
-const fs = require("fs");
-
-const passwords = fs
-  .readFileSync(`${__dirname}/input.txt`)
-  .toString()
-  .trim()
-  .split("\n")
-  .map((line) => {
+module.exports.processInput = (input) => {
+  return input.split("\n").map((line) => {
     const [, min, max, char, pwd] = line.match(/^(\d+)-(\d+) ([a-z]): (.+)/);
 
-    return [parseInt(min, 10), parseInt(max, 10), char, pwd];
+    return [Number(min), Number(max), char, pwd];
   });
+};
 
-const answer1 = passwords.reduce((acc, curr) => {
-  const [min, max, char, password] = curr;
-  const reg = new RegExp(char, "g");
-  const matches = password.match(reg) || [];
+module.exports.part1 = (input) => {
+  return input.reduce((acc, curr) => {
+    const [min, max, char, password] = curr;
+    const reg = new RegExp(char, "g");
+    const matches = password.match(reg) || [];
 
-  if (matches.length >= min && matches.length <= max) {
+    if (matches.length >= min && matches.length <= max) {
+      return acc + 1;
+    }
+
+    return acc;
+  }, 0);
+};
+
+module.exports.part2 = (input) => {
+  return input.reduce((acc, curr) => {
+    const [index1, index2, char, password] = curr;
+
+    const charAt1 = password[index1 - 1];
+    const charAt2 = password[index2 - 1];
+
+    if (charAt1 !== char && charAt2 !== char) {
+      return acc;
+    }
+    if (charAt1 === char && charAt2 === char) {
+      return acc;
+    }
+
     return acc + 1;
-  }
-
-  return acc;
-}, 0);
-
-const answer2 = passwords.reduce((acc, curr) => {
-  const [index1, index2, char, password] = curr;
-
-  const charAt1 = password[index1 - 1];
-  const charAt2 = password[index2 - 1];
-
-  if (charAt1 !== char && charAt2 !== char) {
-    return acc;
-  }
-  if (charAt1 === char && charAt2 === char) {
-    return acc;
-  }
-
-  return acc + 1;
-}, 0);
-
-module.exports = [answer1, answer2];
+  }, 0);
+};

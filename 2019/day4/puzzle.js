@@ -25,7 +25,7 @@ function isValid(pwd, min, max, part) {
   if (!/^[0-9]{6}$/.test(pwd)) {
     return false;
   }
-  if (parseInt(pwd, 10) < min || parseInt(pwd, 10) > max) {
+  if (Number(pwd) < min || Number(pwd) > max) {
     return false;
   }
   if (!/(.)\1/.test(pwd)) {
@@ -42,7 +42,7 @@ function isValid(pwd, min, max, part) {
 
   const chars = pwd.split("");
   for (let current = 0, i = 0; i <= chars.length; i += 1) {
-    if (parseInt(chars[i], 10) < current) {
+    if (Number(chars[i]) < current) {
       return false;
     }
 
@@ -65,7 +65,7 @@ function getAnswer([min, max], part) {
 }
 
 module.exports.processInput = (input) => {
-  return input.split("-").map((item) => parseInt(item, 10));
+  return input.split("-").map(Number);
 };
 
 module.exports.part1 = (input) => {

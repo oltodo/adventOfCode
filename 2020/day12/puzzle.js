@@ -2,7 +2,7 @@ module.exports.processInput = (input) => {
   return input.split("\n").map((line) => {
     const [, action, value] = /^([A-Z])(\d+)$/.exec(line);
 
-    return [action, parseInt(value, 10)];
+    return [action, Number(value)];
   });
 };
 

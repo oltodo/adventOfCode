@@ -21,7 +21,7 @@ function getValue(input, noun = null, verb = null) {
 }
 
 module.exports.processInput = (input) => {
-  return input.split(",").map((line) => parseInt(line, 10));
+  return input.split(",").map(Number);
 };
 
 module.exports.part1 = (input) => {

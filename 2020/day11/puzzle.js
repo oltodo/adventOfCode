@@ -1,12 +1,4 @@
 /* eslint-disable no-continue */
-const fs = require("fs");
-
-const input = fs
-  .readFileSync(`${__dirname}/input.txt`)
-  .toString()
-  .trim()
-  .split("\n")
-  .map((line) => line.split("").map((item) => (item === "." ? null : 1)));
 
 function copy(seats) {
   return [...seats.map((row) => [...row])];
@@ -70,7 +62,13 @@ function getAdjacentSeats(seats, seatX, seatY) {
   return adjacentSeats;
 }
 
-function getAnswer1() {
+module.exports.processInput = (input) => {
+  return input
+    .split("\n")
+    .map((line) => line.split("").map((item) => (item === "." ? null : 1)));
+};
+
+module.exports.part1 = (input) => {
   const fn = (current) => {
     const next = copy(current);
     let changed = false;
@@ -99,9 +97,9 @@ function getAnswer1() {
   };
 
   return getOccupiedSeats(fn(input));
-}
+};
 
-function getAnswer2() {
+module.exports.part2 = (input) => {
   const fn = (current) => {
     const next = copy(current);
     let changed = false;
@@ -129,9 +127,4 @@ function getAnswer2() {
   };
 
   return getOccupiedSeats(fn(input));
-}
-
-const answer1 = getAnswer1();
-const answer2 = getAnswer2();
-
-module.exports = [answer1, answer2];
+};

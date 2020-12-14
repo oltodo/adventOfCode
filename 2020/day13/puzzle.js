@@ -2,7 +2,7 @@ module.exports.processInput = (input) => {
   const [timestamp, busIds] = input.split("\n");
 
   return {
-    timestamp: parseInt(timestamp, 10),
+    timestamp: Number(timestamp),
     busIds: busIds
       .split(",")
       .map((item) => (item === "x" ? null : Number(item))),
