@@ -6,6 +6,7 @@
   "author": "Nicolas Bazille <oltodo@msn.com>",
   "license": "MIT",
   "dependencies": {
+    "expect": "26.6.2",
     "lodash": "4.17.20"
   },
   "devDependencies": {
